@@ -21,7 +21,7 @@ resetBtn.addEventListener('click', resetTimer)
 
 function startTimer(){
     interval = setInterval(()=> {
-        if(!isPaused){
+        if(isPaused === false){
             milliseconds += 10
             if(milliseconds === 1000){
                 seconds++;
@@ -58,6 +58,7 @@ function formatMilliseconds(time){
 }
 function resetTimer(){
     clearInterval(interval)
+    isPaused = false
     minutes = 0
     seconds = 0
     milliseconds = 0
