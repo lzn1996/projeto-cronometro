@@ -10,18 +10,23 @@ const resetBtn = document.querySelector("#resetBtn")
 let minutes = 0;
 let seconds = 0;
 let milliseconds = 0;
-let isPaused = false;
+let isStarted = false;
 let interval;
 
 
-startBtn.addEventListener('click', startTimer)
+startBtn.addEventListener('click', startTheTimer)
 pauseBtn.addEventListener('click', pauseTimer)
 resumeBtn.addEventListener('click', resumeTimer)
 resetBtn.addEventListener('click', resetTimer)
 
+function startTheTimer() {
+    isStarted = true
+    startTimer()
+}
+
 function startTimer(){
     interval = setInterval(()=> {
-        if(!isPaused){
+        if(isStarted){
             milliseconds += 10
             if(milliseconds === 1000){
                 seconds++;
@@ -40,15 +45,17 @@ function startTimer(){
     pauseBtn.style.display = "block";
 }
 function pauseTimer(){
-    isPaused = true
+    isStarted = false
     pauseBtn.style.display = "none"
     resumeBtn.style.display = "block"
 }
 function resumeTimer(){
-    isPaused = false
+    isStarted = true
     pauseBtn.style.display = "block"
     resumeBtn.style.display = "none"
 }
+
+
 
 function formatTime(time){
     return time < 10 ? `0${time}` : time
@@ -57,6 +64,7 @@ function formatMilliseconds(time){
     return time < 100 ? `${time}`.padStart(3, "0") : time
 }
 function resetTimer(){
+    isStarted = false
     clearInterval(interval)
     minutes = 0
     seconds = 0
